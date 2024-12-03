@@ -1,3 +1,5 @@
+# Authentifizierung über öeffentliche Schlüssel mit Apache MINA
+
 In der Fortsetzung meines [Blog-Beitrags](https://www.adesso.de/de/news/blog/migration-von-videomitschnitten-mit-apache-mina-teil-1.jsp) werden wir die Authentifizierung über öffentliche Schlüssel mit dem Apache MINA Framework untersuchen.
 Ich beginne mit einem Überblick über die für uns relevanten kryptographischen Verfahren und Methoden. 
 Anschließend schauen wir uns die Implementierung der Authentifizierung über öffentliche Schlüssel in einem Prototyp und einem vom Framework abgeleiteten Konzept für die Authentifizierung an.
@@ -10,13 +12,14 @@ Wie der Name schon sagt, kann der öffentliche Schlüssel öffentlich zugänglic
 Theoretisch kann jeder mit dem öffentlichen Schlüssel Nachrichten verschlüsseln, da diese nur mit dem privaten Schlüssel entschlüsselt werden können. 
 Maßgeblich ist hierbei, dass der private Schlüssel nicht aus dem öffentlichen Schlüssel berechnet werden kann.
 Der öffentliche Schlüssel wiederum kann aus dem privaten Schlüssel berechnet werden.
+Wird eine Nachricht mit einem privaten Schlüssel verschlüsselt, kann der Inhaber des zum privaten Schlüssel passenden öffentlichen Schlüssels die Nachricht entschlüsseln.
 
 # Digitale Signatur
 Die digitale Signatur kann verwendet werden, um Dokumente digital und rechtssicher zu unterzeichnen sowie die Identität des Unterzeichners und die Integrität von Nachrichten zu bestätigen.
 Betrachtet man einen konkreten Anwendungsfall, so einigen sich der Unterzeichner und der Prüfer zunächst auf die zu verschlüsselnde Nachricht und berechnen jeweils aus dieser einen Hashwert. 
 Das Hashen macht aus einer Nachricht flexibeler Länge eine Nachricht fester Länge. Es ist grundsätzlich nicht möglich, aus dem Hashwert die ursprüngliche Nachricht zu berechnen.
 Der Unterzeichner verschlüsselt den von ihm erstellten Hashwert mit seinem privaten Schlüssel (was eine Signatur der Nachricht darstellt) und schickt die Nachricht samt Signatur an den Prüfer. 
-Der Prüfer validiert die Signatur, indem er den Hashwert entschlüsselt und vergleicht den erhaltenen Hashwert mit dem zuvor berechneten Hashwert.
+Der Prüfer validiert die Signatur, indem er den Hashwert mit dem öffentlichen Schlüssel entschlüsselt und vergleicht den erhaltenen Hashwert mit dem zuvor berechneten Hashwert.
 Stimmen beide Hashwerte überein, ist die Signatur und damit die Identität des Unterzeichners sowie die Echtheit der Nachricht bestätigt.
 
 ![Prüfung der digitalen Signatur](DigitaleSignatur.png)
