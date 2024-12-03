@@ -1,4 +1,4 @@
-# Authentifizierung über öeffentliche Schlüssel mit Apache MINA
+# Authentifizierung über öffentliche Schlüssel mit Apache MINA
 
 In der Fortsetzung meines [Blog-Beitrags](https://www.adesso.de/de/news/blog/migration-von-videomitschnitten-mit-apache-mina-teil-1.jsp) werden wir die Authentifizierung über öffentliche Schlüssel mit dem Apache MINA Framework untersuchen.
 Ich beginne mit einem Überblick über die für uns relevanten kryptographischen Verfahren und Methoden. 
