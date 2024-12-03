@@ -4,7 +4,7 @@ In der Fortsetzung meines [Blog-Beitrags](https://www.adesso.de/de/news/blog/mig
 Ich beginne mit einem Überblick über die für uns relevanten kryptographischen Verfahren und Methoden. 
 Anschließend schauen wir uns die Implementierung der Authentifizierung über öffentliche Schlüssel in einem Prototyp und einem vom Framework abgeleiteten Konzept für die Authentifizierung an.
 
-# Asymmetrische Verschlüsselung
+## Asymmetrische Verschlüsselung
 Bei der asymmetrischen Verschlüsselung werden zwei sich ergänzende Schlüssel verwendet: Der private und der öffentliche Schlüssel.
 Mit dem privaten Schlüssel werden Nachrichten entschlüsselt und digitale Signaturen erzeugt.
 Mit dem öffentlichen Schlüssel werden Nachrichten verschlüsselt und digitale Signaturen auf ihre Authentizität überprüft.
@@ -12,7 +12,7 @@ Wie der Name schon sagt, kann der öffentliche Schlüssel öffentlich zugänglic
 Theoretisch kann jeder mit dem öffentlichen Schlüssel Nachrichten verschlüsseln, da diese nur mit dem privaten Schlüssel entschlüsselt werden können. 
 Maßgeblich ist hierbei, dass der private Schlüssel nicht aus dem öffentlichen Schlüssel berechnet werden kann.
 
-# Digitale Signatur
+## Digitale Signatur
 Die digitale Signatur kann verwendet werden, um Dokumente digital und rechtssicher zu unterzeichnen sowie die Identität des Unterzeichners und die Integrität von Nachrichten zu bestätigen.
 Betrachtet man einen konkreten Anwendungsfall, so einigen sich der Unterzeichner und der Prüfer zunächst auf die zu verschlüsselnde Nachricht und berechnen jeweils aus dieser einen Hashwert. 
 Das Hashen macht aus einer Nachricht flexibeler Länge eine Nachricht fester Länge. Es ist grundsätzlich nicht möglich, aus dem Hashwert die ursprüngliche Nachricht zu berechnen.
@@ -23,7 +23,7 @@ Stimmen beide Hashwerte überein, ist die Signatur und damit die Identität des 
 ![Prüfung der digitalen Signatur](DigitaleSignatur.png)
 
 
-# Authentifizierung über öffentliche Schlüssel
+## Authentifizierung über öffentliche Schlüssel
 Bevor sich der Benutzer über einen öffentlichen Schlüssel am SFTP-Server authentifizieren kann, muss der öffentliche Schlüssel für den Benutzernamen auf dem SFTP-Server konfiguriert sein. 
 Die Authentifizierung erfolgt dann, wie in [RFC4252](https://tools.ietf.org/html/rfc4252/) spezifiziert, über den privaten Schlüssel des Clients. 
 Während des Authentifizierungsvorgangs überprüft der SFTP-Server den öffentlichen Schlüssel des Clients und die Signatur des privaten Schlüssels. 
@@ -33,13 +33,13 @@ Da private Schlüssel in der Regel sehr lang sind, ist es nahezu unmöglich, sie
 Aus diesem Grund ist die Authentifizierung über öffentliche Schlüssel sicherer als die Authentifizierung über Passwörter und sollte letzterer vorgezogen werden. 
 Wichtig ist, dass der private Schlüssel immer geheim bleibt, denn andererseits wäre die Sicherheit des Verfahrens nicht mehr gegeben.
 
-# Diffie-Hellmann-Schlüsselaustausch
+## Diffie-Hellmann-Schlüsselaustausch
 Anders als vielleicht angenommen, kommen die Schlüssel, die für die Authentifizierung verwendet werden, nicht für die Verschlüsselung der Datenübertagung zum Einsatz. 
 Bevor der Authentifizierungsvorgang beginnen kann, findet zwischen dem Client und dem Server der sogenannte "Diffie-Hellmann-Schlüsselaustausch" statt. 
 Während der Prozedur generieren der Client und der Server Schlüsselteile, die, zusammengesetzt, einen symmetrischen Schlüssel für die Verschlüssellung der Kommunikation ergeben. 
 Erst nach erfolgreicher Verschlüsselung des Kommunikationskanals kann mit dem Authentifizierungsvorgang begonnen werden.
 
-# Prototyp
+## Prototyp
 Schauen wir uns den Authentifizierungsvorgang genauer an.
 Hierfür habe ich im GitHub einen Prototyp hinterlegt. 
 Ihr könnt ihn unter [MINA-sftp-pub-auth](https://github.com/IvanKablar/MINA-sftp-pub-auth) herunterladen.
@@ -92,7 +92,7 @@ Zwar ist es wahrscheinlich, dass der Server-Admin den öffentlichen Schlüssel u
 Nach einer erfolgreichen Authentifizierung ermöglicht die Klasse "SftpSubsystemFactory" den Zugriff auf das Dateisystem des Servers. 
 Die Implementierung des Interface "PublickeyAuthenticator" schauen wir uns weiter unten im Beitrag genauer an.
 
-# Konfiguration des öffentlichen Schlüssels
+## Konfiguration des öffentlichen Schlüssels
 Um uns am SFTP-Server authentifizieren zu können, erzeugen wir ein Schlüsselpaar, bestehend aus einem öffentlichen und einem privaten Schlüssel:
 
 ```git
@@ -108,7 +108,7 @@ Beispielsweise könnte der öffentliche Schlüssel in einem LDAP-Verzeichnis hin
 Aus organisatorischer Sicht kann es sinnvoll sein, dass der Client die Schlüssel selbst erzeugt. 
 Die Datei mit dem öffentlichen Schlüssel sendet er über einen beliebigen, möglicherweise unsicheren Kanal, an den Server-Admin und den privaten Schlüssel behält er im Geheimen.
 
-# Anmeldung
+## Anmeldung
 Als Nächstes versuchen wir, uns mit dem privaten Schlüssel am Server zu authentifizieren:
 
 ```git
@@ -120,7 +120,7 @@ Der vom Client geschickte öffentliche Schlüssel kann nun mit dem für den Benu
 Außerdem überprüft das Framework die durch den privaten Schlüssel erstellte Signatur mit dem öffentlichen Schlüssel. 
 Erst, wenn der Vergleich der öffentlichen Schlüssel gelingt und die Signatur korrekt ist, hat sich der Client erfolgreich authentifiziert.
 
-# Implementierung der Authentifizierung
+## Implementierung der Authentifizierung
 Mit der Bereitstellung von Interfaces für die Authentifizierung durch das Framwork wird bei der Entwicklung die Überprüfung von zusätzlichen Authentifizierungskriterien ermöglicht, darunter auch der Vergleich der öffentlichen Schlüssel.
 In unserem Beispiel implementiert die Klasse "SftpPublickeyAuthenticator" eine solche Schnittstelle. 
 Die Authentifizierung beginnt mit der Überprüfung des Benutzernamens. 
