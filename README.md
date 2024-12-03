@@ -11,15 +11,13 @@ Mit dem öffentlichen Schlüssel werden Nachrichten verschlüsselt und digitale 
 Wie der Name schon sagt, kann der öffentliche Schlüssel öffentlich zugänglich gemacht werden. 
 Theoretisch kann jeder mit dem öffentlichen Schlüssel Nachrichten verschlüsseln, da diese nur mit dem privaten Schlüssel entschlüsselt werden können. 
 Maßgeblich ist hierbei, dass der private Schlüssel nicht aus dem öffentlichen Schlüssel berechnet werden kann.
-Der öffentliche Schlüssel wiederum kann aus dem privaten Schlüssel berechnet werden.
-Wird eine Nachricht mit einem privaten Schlüssel verschlüsselt, kann der Inhaber des zum privaten Schlüssel passenden öffentlichen Schlüssels die Nachricht entschlüsseln.
 
 # Digitale Signatur
 Die digitale Signatur kann verwendet werden, um Dokumente digital und rechtssicher zu unterzeichnen sowie die Identität des Unterzeichners und die Integrität von Nachrichten zu bestätigen.
 Betrachtet man einen konkreten Anwendungsfall, so einigen sich der Unterzeichner und der Prüfer zunächst auf die zu verschlüsselnde Nachricht und berechnen jeweils aus dieser einen Hashwert. 
 Das Hashen macht aus einer Nachricht flexibeler Länge eine Nachricht fester Länge. Es ist grundsätzlich nicht möglich, aus dem Hashwert die ursprüngliche Nachricht zu berechnen.
 Der Unterzeichner verschlüsselt den von ihm erstellten Hashwert mit seinem privaten Schlüssel (was eine Signatur der Nachricht darstellt) und schickt die Nachricht samt Signatur an den Prüfer. 
-Der Prüfer validiert die Signatur, indem er den Hashwert mit dem öffentlichen Schlüssel entschlüsselt und vergleicht den erhaltenen Hashwert mit dem zuvor berechneten Hashwert.
+Der Prüfer validiert die Signatur, indem er den Hashwert mit dem zum privaten Schlüssel passenden öffentlichen Schlüssel entschlüsselt und vergleicht den erhaltenen Hashwert mit dem zuvor von ihm berechneten Hashwert.
 Stimmen beide Hashwerte überein, ist die Signatur und damit die Identität des Unterzeichners sowie die Echtheit der Nachricht bestätigt.
 
 ![Prüfung der digitalen Signatur](DigitaleSignatur.png)
