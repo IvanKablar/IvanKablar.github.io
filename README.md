@@ -33,12 +33,12 @@ Erst wenn beide gültig sind, hat sich der Client erfolgreich authentifiziert.
 
 Da private Schlüssel in der Regel sehr lang sind, ist es nahezu unmöglich, sie mit "Brute-Force" Angriffen zu knacken. 
 Aus diesem Grund ist die Authentifizierung über öffentliche Schlüssel sicherer als die Authentifizierung über Passwörter und sollte letzterer vorgezogen werden. 
-Wichtig ist, dass der private Schlüssel immer geheim bleibt, denn andererseits wäre die Sicherheit des Verfahrens nicht mehr gegeben.
+Wichtig ist, dass der private Schlüssel immer geheim bleibt, denn andernfalls wäre die Sicherheit des Verfahrens nicht mehr gegeben.
 
-## Diffie-Hellmann-Schlüsselaustausch
-Anders als vielleicht angenommen, kommen die Schlüssel, die für die Authentifizierung verwendet werden, nicht für die Verschlüsselung der Datenübertagung zum Einsatz. 
-Bevor der Authentifizierungsvorgang beginnen kann, findet zwischen dem Client und dem Server der sogenannte "Diffie-Hellmann-Schlüsselaustausch" statt. 
-Während der Prozedur generieren der Client und der Server Schlüsselteile, die, zusammengesetzt, einen symmetrischen Schlüssel für die Verschlüssellung der Kommunikation ergeben. 
+## Diffie-Hellman-Schlüsselaustausch
+Anders als vielleicht angenommen, kommen die Schlüssel, die für die Authentifizierung verwendet werden, nicht für die Verschlüsselung der Datenübertragung zum Einsatz. 
+Bevor der Authentifizierungsvorgang beginnen kann, findet zwischen dem Client und dem Server der sogenannte "Diffie-Hellman-Schlüsselaustausch" statt. 
+Während der Prozedur generieren der Client und der Server Schlüsselteile, die, zusammengesetzt, einen symmetrischen Schlüssel für die Verschlüsselung der Kommunikation ergeben. 
 Erst nach erfolgreicher Verschlüsselung des Kommunikationskanals kann mit dem Authentifizierungsvorgang begonnen werden.
 
 ## Prototyp
@@ -90,7 +90,7 @@ ssh-keygen -t rsa -m PEM
 Die Datei kopieren wir in das Resource-Verzeichnis des Servers.
 Mit dem öffentlichen Schlüssel der Datei wird der sogenannte "Fingerprint", ein kodierter SHA256 Hashwert, berechnet und dem Client beim Anmeldeversuch zugesendet. 
 Der Client sollte beim Anmelden Änderungen am "Fingerprint" immer genau hinterfragen. 
-Zwar ist es wahrscheinlich, dass der Server-Admin den öffentlichen Schlüssel und somit den "Fingerprint" geändert hat, aber es könnte sich auch um eine "Man-in-the-Middle Attack" handeln. 
+Zwar ist es möglich, dass der Server-Admin den öffentlichen Schlüssel und somit den "Fingerprint" geändert hat, aber es könnte sich auch um eine "Man-in-the-Middle Attack" handeln. 
 Nach einer erfolgreichen Authentifizierung ermöglicht die Klasse "SftpSubsystemFactory" den Zugriff auf das Dateisystem des Servers. 
 Die Implementierung des Interface "PublickeyAuthenticator" schauen wir uns weiter unten im Beitrag genauer an.
 
@@ -101,7 +101,7 @@ Um uns am SFTP-Server authentifizieren zu können, erzeugen wir ein Schlüsselpa
 ssh-keygen -t rsa -b 4096
 ```
 
-Die Datei mit dem öffentlicher Schlüssel kann in ein beliebiges Verzeichnis auf dem Server kopiert werden. 
+Die Datei mit dem öffentlichem Schlüssel kann in ein beliebiges Verzeichnis auf dem Server kopiert werden. 
 Um die Konfiguration in unserem Beispiel einfach zu halten, habe ich die Datei ebenfalls in das Resource-Verzeichnis kopiert. 
 Aus diesem kann der Schlüssel beim Erstellen der Benutzerinformationen gelesen werden. 
 In einer produktiven Anwendung würde wahrscheinlich ein anderes Konzept hinter der Schlüsselverwaltung stehen. 
@@ -123,7 +123,7 @@ Außerdem überprüft das Framework die durch den privaten Schlüssel erstellte 
 Erst, wenn der Vergleich der öffentlichen Schlüssel gelingt und die Signatur korrekt ist, hat sich der Client erfolgreich authentifiziert.
 
 ## Implementierung der Authentifizierung
-Mit der Bereitstellung von Interfaces für die Authentifizierung durch das Framwork wird bei der Entwicklung die Überprüfung von zusätzlichen Authentifizierungskriterien ermöglicht, darunter auch der Vergleich der öffentlichen Schlüssel.
+Mit der Bereitstellung von Interfaces für die Authentifizierung durch das Framework wird bei der Entwicklung die Überprüfung von zusätzlichen Authentifizierungskriterien ermöglicht, darunter auch der Vergleich der öffentlichen Schlüssel.
 In unserem Beispiel implementiert die Klasse "SftpPublickeyAuthenticator" eine solche Schnittstelle. 
 Die Authentifizierung beginnt mit der Überprüfung des Benutzernamens. 
 Anschließend findet der Vergleich der öffentlichen Schlüssel statt. 
@@ -201,9 +201,7 @@ private boolean compareKeys(PublicKey clientPublicKey, PublicKey serverConfigPub
 ```
 
 Stimmen die Schlüssel nicht überein, bricht die Authentifizierung an dieser Stelle ab. 
-Handelt es sich um die gleichen Schlüssel, weiß der Server, dass der Client im Besitz des öffentlichen Schlüssels ist. 
-Der Server überprüft nun noch die digitale Signatur der Nachricht, die der Client an den Server geschickt hat.
-Ist die digitale Signatur korrekt, hat sich der Client erfolgreich authentifiziert.
+Handelt es sich um die gleichen Schlüssel, überprüft der Server anschließend die digitale Signatur, um sicherzustellen, dass der Client im Besitz des zugehörigen privaten Schlüssels ist. Ist die digitale Signatur korrekt, hat sich der Client erfolgreich authentifiziert.
 
 # Ergebnis
 Mit dem Prototyp und dem Beispiel oben haben wir die Implementierung eines Konzepts für die Authentifizierung über öffentliche Schlüssel mit dem Apache MINA Framework untersucht. 
