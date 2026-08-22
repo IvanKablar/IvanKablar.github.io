@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="627" viewBox="0 0 1200 627"
+     font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <title>Public-Key-Authentifizierung für einen SFTP-Server mit Apache MINA SSHD</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1322"/>
+      <stop offset="0.55" stop-color="#0f1c33"/>
+      <stop offset="1" stop-color="#152441"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 H0 V40" fill="none" stroke="#31415f" stroke-width="1" opacity="0.30"/>
+    </pattern>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#14b8a6" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#14b8a6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="1" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fde68a"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <clipPath id="keytextClip"><rect x="676" y="62" width="470" height="76"/></clipPath>
+
+    <!-- Schlüssel-Silhouette: Kopf links (Loch), Schaft nach rechts, zwei Bartzähne -->
+    <path id="keyshape" fill-rule="evenodd"
+          d="M41,-9 L205,-9 L205,9 L192,9 L192,54 L176,54 L176,9 L156,9 L156,44 L140,44 L140,9 L41,9
+             A42,42 0 1,1 41,-9 Z
+             M20,0 A20,20 0 1,0 -20,0 A20,20 0 1,0 20,0 Z"/>
+  </defs>
+
+  <!-- Hintergrund -->
+  <rect width="1200" height="627" fill="url(#bg)"/>
+  <rect width="1200" height="627" fill="url(#grid)"/>
+  <ellipse cx="930" cy="300" rx="330" ry="300" fill="url(#halo)"/>
+
+  <!-- dezenter Public-Key-Text als Textur (oben rechts, sauber beschnitten) -->
+  <g clip-path="url(#keytextClip)" font-family="Menlo, Consolas, monospace" font-size="14" fill="#7f97bd" opacity="0.20">
+    <text x="676" y="84">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDUsgh958M7FIly</text>
+    <text x="676" y="106">Sbw7QCUk4c9v0aTq2gJrX1LmZ7dQeWf3Hn8cYpB5sKtVx2LwRz9</text>
+    <text x="676" y="128">NqM4oPbJ6hA1Gd7Tt5kE8cR2vXyQ0uLm3zN9sBf4hJ1w ivan@host</text>
+  </g>
+
+  <!-- ============ LINKE SPALTE: Text ============ -->
+  <rect x="72" y="150" width="8" height="250" rx="4" fill="url(#teal)"/>
+
+  <text x="108" y="176" font-size="24" font-weight="600" fill="#7dd3fc" letter-spacing="3.5">APACHE MINA SSHD</text>
+  <text x="108" y="252" font-size="56" font-weight="800" fill="#ffffff">Public-Key-</text>
+  <text x="108" y="316" font-size="56" font-weight="800" fill="#ffffff">Authentifizierung</text>
+  <text x="108" y="368" font-size="27" fill="#c7d5e8">für einen SFTP-Server in Java</text>
+
+  <!-- Terminal -->
+  <g transform="translate(108,424)">
+    <rect x="0" y="0" width="530" height="62" rx="11" fill="#070d1a" stroke="#2b3f66" stroke-width="2"/>
+    <circle cx="24" cy="31" r="6" fill="#ef4444"/>
+    <circle cx="46" cy="31" r="6" fill="#f59e0b"/>
+    <circle cx="68" cy="31" r="6" fill="#22c55e"/>
+    <text x="92" y="39" font-family="Menlo, Consolas, monospace" font-size="20" fill="#5eead4">$ sftp -P 9922 -i id_rsa ivan@host</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="108" y="546" font-size="21" font-weight="600" fill="#a9bcd8">ivankablar.github.io</text>
+  <text x="108" y="574" font-size="16" fill="#66799b">Prototyp und Konzept für die Authentifizierung am SFTP-Server</text>
+
+  <!-- ============ RECHTE SPALTE: Grafik ============ -->
+  <!-- Client -> verschlüsselter Kanal -> Server -->
+  <g transform="translate(690,180)">
+    <!-- Client -->
+    <rect x="0" y="0" width="118" height="76" rx="9" fill="#18294a" stroke="#2dd4bf" stroke-width="3"/>
+    <rect x="-13" y="80" width="144" height="12" rx="6" fill="#2dd4bf"/>
+    <text x="59" y="46" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="19" fill="#5eead4">sftp</text>
+    <text x="59" y="120" text-anchor="middle" font-size="17" fill="#8ea6c8">Client</text>
+
+    <!-- Kanal -->
+    <line x1="132" y1="40" x2="278" y2="40" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="9 8"/>
+    <!-- Schloss -->
+    <g transform="translate(178,4)">
+      <rect x="0" y="22" width="48" height="40" rx="8" fill="url(#teal)"/>
+      <path d="M9,22 V13 a15,15 0 0 1 30,0 V22" fill="none" stroke="#2dd4bf" stroke-width="6"/>
+      <circle cx="24" cy="39" r="5.5" fill="#0a1322"/>
+      <rect x="21.5" y="39" width="5" height="11" rx="2" fill="#0a1322"/>
+    </g>
+
+    <!-- Server -->
+    <g transform="translate(300,-32)">
+      <rect x="0" y="0" width="104" height="146" rx="10" fill="#18294a" stroke="#2dd4bf" stroke-width="3"/>
+      <g fill="#26395e">
+        <rect x="13" y="15" width="78" height="28" rx="5"/>
+        <rect x="13" y="53" width="78" height="28" rx="5"/>
+        <rect x="13" y="91" width="78" height="28" rx="5"/>
+      </g>
+      <g fill="#5eead4">
+        <circle cx="79" cy="29" r="5"/><circle cx="79" cy="67" r="5"/><circle cx="79" cy="105" r="5"/>
+      </g>
+      <text x="52" y="152" text-anchor="middle" font-size="17" fill="#8ea6c8">SFTP-Server</text>
+    </g>
+  </g>
+
+  <!-- Schlüsselpaar -->
+  <g transform="translate(700,392) scale(0.62)">
+    <use href="#keyshape" fill="none" stroke="#2dd4bf" stroke-width="9" stroke-linejoin="round"/>
+  </g>
+  <text x="850" y="386" font-size="21" font-weight="700" fill="#5eead4">öffentlicher Schlüssel</text>
+  <text x="850" y="410" font-size="17" fill="#8ea6c8">auf dem Server hinterlegt</text>
+
+  <g transform="translate(700,492) scale(0.62)">
+    <use href="#keyshape" fill="url(#amber)"/>
+  </g>
+  <text x="850" y="486" font-size="21" font-weight="700" fill="#fbbf24">privater Schlüssel</text>
+  <text x="850" y="510" font-size="17" fill="#8ea6c8">bleibt beim Client, signiert</text>
+</svg>
