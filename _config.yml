@@ -1,0 +1,4 @@
+theme: jekyll-theme-primer
+lang: de
+title: Ivan Kablar
+description: Authentifizierung über öffentliche Schlüssel mit Apache MINA SSHD – Prototyp eines SFTP-Servers mit Public-Key-Authentifizierung.
