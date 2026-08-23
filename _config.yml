@@ -19,20 +19,3 @@ defaults:
         width: 1200
         height: 627
         alt: Public-Key-Authentifizierung für einen SFTP-Server mit Apache MINA SSHD
-theme: jekyll-theme-primer
-lang: de
-title: Ivan Kablar
-description: Authentifizierung über öffentliche Schlüssel mit Apache MINA SSHD – Prototyp eines SFTP-Servers mit Public-Key-Authentifizierung.
-url: https://ivankablar.github.io
-
-# Vorschaubild für LinkedIn, X und Co. (og:image). jekyll-seo-tag liest es aus
-# page.image, deshalb wird es hier als Default für alle Seiten gesetzt.
-defaults:
-  - scope:
-      path: ""
-    values:
-      image:
-        path: /og-image.png
-        width: 1200
-        height: 627
-        alt: Public-Key-Authentifizierung für einen SFTP-Server mit Apache MINA SSHD
