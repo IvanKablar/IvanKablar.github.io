@@ -1,0 +1,7 @@
+{%- comment -%}
+  article:author gibt jekyll-seo-tag nicht selbst aus, LinkedIn liest es aber
+  für die Autorenangabe. Primer bindet diese Datei im <head> ein.
+{%- endcomment -%}
+{%- if site.author %}
+<meta property="article:author" content="{{ site.author }}" />
+{%- endif %}
