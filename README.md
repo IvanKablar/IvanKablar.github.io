@@ -1,3 +1,5 @@
+![Public-Key-Authentifizierung für einen SFTP-Server mit Apache MINA SSHD](og-image.png)
+
 # Authentifizierung über öffentliche Schlüssel mit Apache MINA
 
 In der Fortsetzung meines Blog-Beitrags [Migration von Videomitschnitten mit Apache MINA – Teil 1](https://www.adesso.de/de/news/blog/migration-von-videomitschnitten-mit-apache-mina-teil-1.jsp) werden wir die Authentifizierung über öffentliche Schlüssel mit dem Apache-MINA-Framework untersuchen.
