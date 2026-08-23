@@ -3,6 +3,27 @@ lang: de
 title: Ivan Kablar
 description: Authentifizierung über öffentliche Schlüssel mit Apache MINA SSHD – Prototyp eines SFTP-Servers mit Public-Key-Authentifizierung.
 url: https://ivankablar.github.io
+author: Ivan Kablar
+
+# Vorschaubild, Autor und Datum für LinkedIn, X und Co. jekyll-seo-tag liest
+# Bild und Datum aus page.*, deshalb hier als Default für alle Seiten gesetzt.
+# Das Datum erzeugt zusätzlich og:type=article und article:published_time.
+defaults:
+  - scope:
+      path: ""
+    values:
+      author: Ivan Kablar
+      date: 2024-12-03 11:35:27 +0000
+      image:
+        path: /og-image.png
+        width: 1200
+        height: 627
+        alt: Public-Key-Authentifizierung für einen SFTP-Server mit Apache MINA SSHD
+theme: jekyll-theme-primer
+lang: de
+title: Ivan Kablar
+description: Authentifizierung über öffentliche Schlüssel mit Apache MINA SSHD – Prototyp eines SFTP-Servers mit Public-Key-Authentifizierung.
+url: https://ivankablar.github.io
 
 # Vorschaubild für LinkedIn, X und Co. (og:image). jekyll-seo-tag liest es aus
 # page.image, deshalb wird es hier als Default für alle Seiten gesetzt.
